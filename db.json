@@ -71,6 +71,20 @@
           "name": "Mary Gordon"
         }
       ]
+    },
+    {
+      "id": "bf50c7f8-e0c9-4ec8-9f1b-023f1c54fe9d",
+      "category": "nature",
+      "organizer": {
+        "id": "abc123",
+        "name": "Adam Jahr"
+      },
+      "title": "Squirrel Watch",
+      "description": "Watching the squirrels",
+      "location": "The Park",
+      "date": "2019-10-30T15:17:00.000Z",
+      "time": "14:00",
+      "attendees": []
     }
   ]
 }
