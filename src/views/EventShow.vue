@@ -26,17 +26,17 @@
 </template>
 <script>
 import EventService from '@/services/EventService.js'
+import { mapState, mapActions } from 'vuex'
 
 export default {
   props: ['id'],
   created() {
-    this.$store.dispatch('fetchEvent', {id: this.id})
+    this.fetchEvent({id: this.id})
   },
-  computed: {
-    event() {
-      return this.$store.state.currentEvent
-    }
-  }
+  computed: mapState({
+    event: state => state.event.currentEvent
+  }),
+  methods: mapActions('event', ['fetchEvent'])
 }
 </script>
 <style scoped>

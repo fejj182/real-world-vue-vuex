@@ -55,7 +55,7 @@ export default {
   },
   methods: {
     createFreshEvent() {
-      const user = this.$store.state.user
+      const user = this.$store.state.user.user
       return {
         id: uuidv4(),
         category: '',
@@ -70,7 +70,7 @@ export default {
     },
     createEvent() {
       this.$store
-        .dispatch('createEvent', this.event)
+        .dispatch('event/createEvent', this.event)
         .then(() => {
           this.$router.push({
             name: 'event-show',
