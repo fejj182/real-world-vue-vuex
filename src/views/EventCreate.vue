@@ -37,7 +37,7 @@
 
 <script>
 import Datepicker from 'vuejs-datepicker'
-const uuidv4 = require('uuid/v4');
+const uuidv4 = require('uuid/v4')
 export default {
   components: {
     Datepicker
@@ -69,26 +69,20 @@ export default {
       }
     },
     createEvent() {
-      this.$store
-        .dispatch('event/createEvent', this.event)
-        .then(() => {
-          this.$router.push({
-            name: 'event-show',
-            params: { id: this.event.id }
-          })
-          this.event = this.createFreshEvent()
+      this.$store.dispatch('event/createEvent', this.event).then(() => {
+        this.$router.push({
+          name: 'event-show',
+          params: { id: this.event.id }
         })
-        .catch((e) => {
-          console.log('There was a problem creating your event.')
-          console.error(e)
-        })
+        this.event = this.createFreshEvent()
+      })
     }
   }
 }
 </script>
 
 <style scoped>
-  .field {
-    margin-bottom: 24px;
-  }
+.field {
+  margin-bottom: 24px;
+}
 </style>

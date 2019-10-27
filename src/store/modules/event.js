@@ -14,21 +14,39 @@ export const getters = {
 }
 
 export const actions = {
-  createEvent({ commit }, event) {
-    return EventService.postEvent(event).then(response => {
-      commit('ADD_EVENT', response.data)
-    })
+  createEvent({ commit, dispatch }, event) {
+    return EventService.postEvent(event)
+      .then(response => {
+        commit('ADD_EVENT', response.data)
+        const notification = {
+          type: 'success',
+          message: 'Your event has been created!'
+        }
+        dispatch('notification/add', notification, { root: true })
+      })
+      .catch(error => {
+        const notification = {
+          type: 'error',
+          message: 'There was a problem creating your event: ' + error.message
+        }
+        dispatch('notification/add', notification, { root: true })
+        throw error
+      })
   },
-  fetchEvents({ commit }, { perPage, page }) {
+  fetchEvents({ commit, dispatch }, { perPage, page }) {
     return EventService.getEvents(perPage, page)
       .then(response => {
         commit('SET_EVENTS', response.data)
       })
       .catch(error => {
-        console.log('There was an error:', error.response)
+        const notification = {
+          type: 'error',
+          message: 'There was a problem fetching events: ' + error.message
+        }
+        dispatch('notification/add', notification, { root: true })
       })
   },
-  fetchEvent({ commit, getters }, { id }) {
+  fetchEvent({ commit, dispatch, getters }, { id }) {
     const event = getters.getEventById(id)
     if (event) {
       commit('SET_EVENT', event)
@@ -38,7 +56,13 @@ export const actions = {
           commit('SET_EVENT', response.data)
         })
         .catch(error => {
-          console.log('There was an error:', error.response)
+          const notification = {
+            type: 'error',
+            message: 'There was a problem fetching an event: ' + error.message
+          }
+          dispatch('notification/add', notification, {
+            root: true
+          })
         })
     }
   }
